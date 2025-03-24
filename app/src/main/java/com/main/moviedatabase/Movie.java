@@ -3,6 +3,10 @@ package com.main.moviedatabase;
 import android.content.Context;
 import android.util.Log;
 
+/**
+ * Represents a movie entity with title, year, genre, and poster details.
+ * Provides default values and basic validation for certain attributes.
+ */
 public class Movie {
     private static final String TAG = "Movie";
     private static final String DEFAULT_TITLE = "null";
@@ -14,6 +18,14 @@ public class Movie {
     private String genre;
     private String poster;
 
+    /**
+     * Constructs a Movie object with the specified attributes.
+     *
+     * @param title  the movie title
+     * @param year   the movie release year
+     * @param genre  the movie genre
+     * @param poster the drawable resource name for the poster
+     */
     public Movie(String title, Integer year, String genre, String poster) {
         this.title = title;
         this.year = year;
@@ -30,22 +42,48 @@ public class Movie {
         }
     }
 
+    /**
+     * Returns the movie title or a default if invalid.
+     *
+     * @return the valid movie title
+     */
     public String getTitle() {
         return title == null || title.trim().isEmpty() ? DEFAULT_TITLE : title;
     }
 
+    /**
+     * Returns the movie year or 0 if invalid.
+     *
+     * @return the valid movie year
+     */
     public Integer getYear() {
         return year == null || year < 1888 ? DEFAULT_YEAR : year;
     }
 
+    /**
+     * Returns the movie genre or a default if invalid.
+     *
+     * @return the valid movie genre
+     */
     public String getGenre() {
         return genre == null || genre.trim().isEmpty() ? DEFAULT_GENRE : genre;
     }
 
+    /**
+     * Returns the raw poster resource name.
+     *
+     * @return the poster resource name
+     */
     public String getPoster() {
         return poster;
     }
 
+    /**
+     * Retrieves the corresponding drawable resource ID or a placeholder.
+     *
+     * @param context the context for resource resolution
+     * @return the drawable resource ID
+     */
     public int getPosterResourceId(Context context) {
         try {
             if (poster != null) {

@@ -12,15 +12,30 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Loads and parses movie data from a JSON asset file.
+ * Offers an option to hide movies with incomplete data.
+ */
 public class MovieLoading {
     private static final String TAG = "MovieLoading";
     private Context context;
     private boolean hide = false;
 
+    /**
+     * Constructs a MovieLoading instance for JSON file operations.
+     *
+     * @param context the context for accessing app assets
+     */
     public MovieLoading(Context context) {
         this.context = context;
     }
 
+    /**
+     * Loads movies from the asset file and returns a list of Movie objects.
+     * Returns an empty list if file reading errors occur or parsing fails.
+     *
+     * @return a list of parsed Movie objects
+     */
     public List<Movie> loadMovies() {
         String fileName = "movies.json";
         String jsonString;
@@ -53,10 +68,22 @@ public class MovieLoading {
         return new String(buffer, "UTF-8");
     }
 
+    /**
+     * Sets whether incomplete movie entries should be hidden.
+     *
+     * @param hide true to hide incomplete entries; false otherwise
+     */
     public void setHide(boolean hide) {
         this.hide = hide;
     }
 
+    /**
+     * Parses the given JSON string and converts it to a list of Movie objects.
+     *
+     * @param jsonString the JSON content to parse
+     * @return a list of Movie objects constructed from JSON
+     * @throws org.json.JSONException if the JSON is malformed
+     */
     private List<Movie> parseMovies(String jsonString) throws JSONException {
         List<Movie> movies = new ArrayList<>();
         JSONArray jsonArray = new JSONArray(jsonString);

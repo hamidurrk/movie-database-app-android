@@ -17,6 +17,9 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 
 import java.util.List;
 
+/**
+ * The main activity handling UI initialization and movie list loading.
+ */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private RecyclerView movieRecyclerView;
@@ -26,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
     private List<Movie> movies;
     private boolean hide = false;
 
+    /**
+     * Called when the activity is created. Initializes layout, sets up listeners, and loads movies.
+     *
+     * @param savedInstanceState the saved instance data
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,24 +65,27 @@ public class MainActivity extends AppCompatActivity {
 
         reloadMovies();
     }
-        private void reloadMovies() {
-            MovieLoading movieLoading = new MovieLoading(this);
+
+    /**
+     * Reloads the movie list from the JSON file. Displays errors if loading fails.
+     */
+    private void reloadMovies() {
+        MovieLoading movieLoading = new MovieLoading(this);
+        if (hide) {
+            movieLoading.setHide(true);
+        }
+        movies = movieLoading.loadMovies();
+
+        if (movies.isEmpty()) {
+            Log.e(TAG, "No movies loaded. Check the JSON file and parsing.");
+            // Show an error message to the user
+            Toast.makeText(this, "Error loading movies", Toast.LENGTH_LONG).show();
+        } else {
+            movieAdapter = new MovieAdapter(this, movies);
             if (hide) {
-                movieLoading.setHide(true);
+                movieAdapter.setHide(true);
             }
-            movies = movieLoading.loadMovies();
-
-            if (movies.isEmpty()) {
-                Log.e(TAG, "No movies loaded. Check the JSON file and parsing.");
-                // Show an error message to the user
-                Toast.makeText(this, "Error loading movies", Toast.LENGTH_LONG).show();
-            } else {
-                movieAdapter = new MovieAdapter(this, movies);
-                if (hide) {
-                    movieAdapter.setHide(true);
-                }
-                movieRecyclerView.setAdapter(movieAdapter);
-            }
-            }
-
+            movieRecyclerView.setAdapter(movieAdapter);
+        }
     }
+}

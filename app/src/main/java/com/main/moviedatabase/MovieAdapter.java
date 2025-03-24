@@ -16,21 +16,43 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+/**
+ * Binds a list of Movie objects to RecyclerView item views.
+ * Handles dynamic visibility based on user preferences.
+ */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private List<Movie> movieList;
     private Context context;
     private boolean hide = false;
 
+    /**
+     * Constructs a MovieAdapter with the provided data and context.
+     *
+     * @param context   the context for resource access
+     * @param movieList the initial list of Movie objects to display
+     */
     public MovieAdapter(Context context, List<Movie> movieList) {
         this.context = context;
         this.movieList = movieList;
     }
 
+    /**
+     * Sets whether to hide incomplete data fields in the item views.
+     *
+     * @param hide true to hide fields; false otherwise
+     */
     public void setHide(boolean hide) {
         this.hide = hide;
     }
 
+    /**
+     * Inflates the item layout and creates a new ViewHolder.
+     *
+     * @param parent   the parent view group
+     * @param viewType the view type for the item
+     * @return a new MovieViewHolder for the item
+     */
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +60,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return new MovieViewHolder(view);
     }
 
+    /**
+     * Binds the Movie object data to the given ViewHolder.
+     *
+     * @param holder   the holder to update
+     * @param position the item's position in the list
+     */
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
@@ -82,11 +110,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.posterImageView.setImageResource(movie.getPosterResourceId(context));
     }
 
+    /**
+     * Returns the total number of Movie items.
+     *
+     * @return the item count
+     */
     @Override
     public int getItemCount() {
         return movieList.size();
     }
 
+    /**
+     * ViewHolder class holding references to item layout views.
+     */
     static class MovieViewHolder extends RecyclerView.ViewHolder {
         ImageView posterImageView;
         TextView titleTextView, yearTextView, genreTextView;
