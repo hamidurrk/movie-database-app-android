@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:gravity="center"
+        android:width="100dp"
+        android:height="150dp">
+        <shape>
+            <solid android:color="@color/gray" />
+        </shape>
+    </item>
+    <item
+        android:gravity="center"
+        android:drawable="@drawable/no_poster_available"
+        android:width="32dp"
+        android:height="32dp"/>
+</layer-list>
